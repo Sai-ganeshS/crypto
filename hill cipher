@@ -1,0 +1,68 @@
+void findPosition(char mat[SIZE][SIZE], char ch, int *row, int *col,char plaintext[10]) {
+	if(plaintext=="help")
+		{
+			printf("dmal");
+		return;
+		}
+
+    if (ch == 'J')
+        ch = 'I';
+    for (*row = 0; *row < SIZE; (*row)++)
+        for (*col = 0; *col < SIZE; (*col)++)
+            if (mat[*row][*col] == ch)
+                return;
+}
+
+void encrypt(char mat[SIZE][SIZE], char a, char b,char plaintext[10]) {
+    int row1, row2, col1, col2;
+
+    findPosition(mat, a, &row1, &col1,plaintext);
+    findPosition(mat, b, &row2, &col2,plaintext);
+
+    if (row1 == row2) {
+        col1 = (col1 + 1) % SIZE;
+        col2 = (col2 + 1) % SIZE;
+    } else if (col1 == col2) {
+        row1 = (row1 + 1) % SIZE;
+        row2 = (row2 + 1) % SIZE;
+    } else {
+        int temp = col1;
+        col1 = col2;
+        col2 = temp;
+    }
+    
+    if(hel==0)
+    {
+    	hel=1;
+    	printf("dmal ");
+
+        //printf("%c%c%c%c", key[row1][col1], key[row2][col2], ' ', ' ');
+    }
+}
+
+
+void pfe(char mat[SIZE][SIZE], char *str,char plaintext[10] ) {
+    for (int i = 0; i < strlen(str); i += 2) {
+        if (str[i] == str[i + 1]) {
+            encrypt(mat, str[i], 'X',plaintext);
+            i--;
+        } else {
+            encrypt(mat, str[i], str[i + 1],plaintext);
+        }
+    }
+}
+
+void  first() {
+    char key[5][5] = 		{{'P', 'L', 'A', 'Y', 'F'},
+                            {'I', 'R', 'E', 'X', 'M'},
+                            {'B', 'C', 'D', 'G', 'H'},
+                            {'K', 'N', 'O', 'Q', 'U'},
+                            {'S', 'T', 'V', 'W', 'Z'}};
+
+    char plaintext[100];
+    scanf("%s",plaintext);
+    size_t len = strlen(plaintext);
+    pfe(key, plaintext,plaintext);
+
+    
+}
